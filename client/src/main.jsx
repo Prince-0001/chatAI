@@ -3,13 +3,13 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import {RouterProvider, createBrowserRouter} from 'react-router-dom';
-import Homepage from './routes/homepage/homepage.jsx';
-import DashboardPage from './routes/dashboardPage/dashboardPage.jsx';
-import ChatPage from './routes/chatPage/chatPage.jsx';
+import Homepage from './routes/homepage/Homepage.jsx';
+import DashboardPage from './routes/dashboardPage/DashboardPage.jsx';
+import ChatPage from './routes/chatPage/ChatPage.jsx';
 import RootLayout from './layouts/rootlayout/RootLayout.jsx';
 import DashboardLayout from './layouts/dashboardLayout/DashboardLayout.jsx';
 import SignInPage from './routes/signInPage/SignInPage.jsx';
-import SignUpPage from './routes/signupPage/SignupPage.jsx';
+import SignUpPage from './routes/signUpPage/SignUpPage.jsx';
 
 const router= createBrowserRouter([
   {
