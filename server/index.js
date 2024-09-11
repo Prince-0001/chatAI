@@ -14,8 +14,9 @@ const app=express();
 // const _filename=fileURLToPath(import.meta.url);
 // const _dirname= path.dirname(_filename)
 
+console.log(process.env.IMAGE_KIT_ENDPOINT)
 const imagekit = new ImageKit({
-    urlEndpoint: process.env.IMAGE_KIT_ENDPOINT,
+    urlEndpoint: "https://ik.imagekit.io/uqzqfzzbn",
     publicKey: process.env.IMAGE_KIT_PUBLIC_KEY,
     privateKey: process.env.IMAGE_KIT_PRIVATE_KEY
   });
