@@ -36,8 +36,7 @@ useEffect(()=>{
   //     }
   //   }, 60000);
 
-    return () => clearInterval(intervalId);
-  }, []);
+    
 
 
   return (
