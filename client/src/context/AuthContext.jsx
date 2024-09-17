@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-
+import Cookies from 'js-cookie';
 
 export const AuthContext =createContext({
     
@@ -9,16 +9,9 @@ export const AuthContext =createContext({
 
 export const AuthContextProvider =({children})=>{
     const [currentUser, setCurrentUser]=useState(JSON.parse(localStorage.getItem("user"))||null);
-    const [token,setToken]=useState("");
-
-    const getCookie = (name) => {
-        const value = `; ${document.cookie}`;
-        const regex = new RegExp(`;\\s*${name}=([^;]*)`);
-        const match = value.match(regex);
-        return match && match[1];
-      };
+    const [token,setToken]=useState(null);
+    const [loading,setLoading]=useState(true);
     
-      
     const login =async(inputs)=>{
         
         const res=await axios.post(import.meta.env.VITE_API_URL+"/api/auth/login",inputs,{
@@ -26,6 +19,8 @@ export const AuthContextProvider =({children})=>{
         });
         const{password,...other}=res.data._doc;
         setCurrentUser(other);
+        setToken(Cookies.get('access_token'))
+        setLoading(false)
     }
 
     const logout=async ()=>{
@@ -37,15 +32,11 @@ export const AuthContextProvider =({children})=>{
     }
 
     useEffect(()=>{
-        setToken(getCookie("access_token"));
         localStorage.setItem("user",JSON.stringify(currentUser));
-    },[currentUser,token,login])
-    
-    
-
+    },[currentUser])
 
     return(
-        <AuthContext.Provider value={{currentUser,login,logout,setCurrentUser,token}}>
+        <AuthContext.Provider value={{currentUser,login,logout,setCurrentUser,token,loading}}>
             {children}
         </AuthContext.Provider>
     )

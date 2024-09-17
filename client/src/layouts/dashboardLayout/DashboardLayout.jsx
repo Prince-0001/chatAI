@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import './dashboardLayout.css'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 // import { useAuth } from '@clerk/clerk-react'
 import ChatList from '../../components/chatList/ChatList'
 import './dashboardLayout.css'
-import { AuthContext } from '../../context/AuthContext'
+import Cookies from 'js-cookie';
 import { useContext } from 'react'
-import { useState } from 'react'
 
 const DashboardLayout = () => {
   
@@ -18,13 +18,27 @@ const DashboardLayout = () => {
   //   }
   // },[userId,isLoaded,navigate])
 
-  const {currentUser,token}=useContext(AuthContext);
-  // useEffect(()=>{
-  //   if(!token||!currentUser){
-  //   navigate('/login');
-  //   }
-  // },[currentUser,token])
   
+const{loading} =useContext(AuthContext);
+
+
+useEffect(()=>{
+  if(loading){
+    navigate("/login")
+  }
+},[loading])
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const tokenFromCookie = Cookies.get('access_token');
+      if (!tokenFromCookie || tokenFromCookie === '') {
+        navigate("/login");
+      }
+    }, 60000);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
 
   return (
     <div className='dashboardLayout'>

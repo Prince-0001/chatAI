@@ -7,12 +7,15 @@ const ChatList = () => {
 
   const{isPending, error, data}=useQuery({
     queryKey:['userChats'],
-    queryFn:()=>
-      fetch(import.meta.env.VITE_API_URL+'/api/userchats',{
-        credentials:"include"
-      }).then((res)=>
-        res.json("hello")
-      )
+    queryFn: () =>
+      fetch(import.meta.env.VITE_API_URL + '/api/userchats', {
+        credentials: 'include'
+      }).then((res) => {
+        if (!res.ok) {
+          throw new Error('Failed to fetch user chats');
+        }
+        return res.json();
+      })
   })
   
   return (
