@@ -1,7 +1,7 @@
 import Chat from "../model/chat.js"
 
 export const chat=async (req,res)=>{
-    const userId=req.auth.userId;
+    const userId=req.userId;
     try{
         const chat=await Chat.findOne({_id:req.params.id,userId});
         res.status(200).send(chat);
@@ -13,7 +13,7 @@ export const chat=async (req,res)=>{
 }
 
 export const updateChat=async(req,res)=>{
-    const userId=req.auth.userId;
+    const userId=req.userId;
 
     const{question,answer,img} =req.body;
 

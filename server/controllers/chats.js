@@ -5,7 +5,7 @@ import UserChats from '../model/userChats.js'
 export const chats=async(req,res)=>{
 
     const {text}= req.body;
-    const userId=req.auth.userId;
+    const userId=req.userId;
     try{
         const newChat=new Chat({
             userId:userId,

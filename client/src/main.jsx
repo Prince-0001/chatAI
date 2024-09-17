@@ -10,6 +10,9 @@ import RootLayout from './layouts/rootlayout/RootLayout.jsx';
 import DashboardLayout from './layouts/dashboardLayout/DashboardLayout.jsx';
 import SignInPage from './routes/signInPage/SignInPage.jsx';
 import SignUpPage from './routes/signUpPage/SignUpPage.jsx';
+import Login from './routes/Login/Login.jsx';
+import Register from './routes/Register/Register.jsx';
+import { AuthContextProvider } from './context/AuthContext.jsx';
 
 const router= createBrowserRouter([
   {
@@ -21,8 +24,16 @@ const router= createBrowserRouter([
       },
       
       
-      { path: '/sign-in/*', element: <SignInPage/> },
-      { path: '/sign-up/*', element: <SignUpPage/> },
+      // { path: '/sign-in/*', element: <SignInPage/> },
+      // { path: '/sign-up/*', element: <SignUpPage/> },
+      {
+        path:'/login',
+        element:<Login/>
+      },
+      {
+        path:'/register',
+        element:<Register/>
+      },
       {
         element:<DashboardLayout/>,
         children:[
@@ -42,8 +53,11 @@ const router= createBrowserRouter([
 createRoot(document.getElementById('root')).render(
 
   <StrictMode>
+    <AuthContextProvider >
     <RouterProvider router={router}>
       <App />
     </RouterProvider>
+    </AuthContextProvider>
+    
   </StrictMode>,
 )

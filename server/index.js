@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import cors from 'cors'
 import { connect } from "./database/db.js";
 import chatRoute from './routes/chatRoute.js'
+import userRoutes from './routes/userRoutes.js'
+import cookieParser from "cookie-parser";
 // import path from "path";
 // import url, {fileURLToPath} from 'url'
 dotenv.config();
@@ -14,7 +16,7 @@ const app=express();
 // const _filename=fileURLToPath(import.meta.url);
 // const _dirname= path.dirname(_filename)
 
-console.log(process.env.IMAGE_KIT_ENDPOINT)
+// console.log(process.env.IMAGE_KIT_ENDPOINT)
 const imagekit = new ImageKit({
     urlEndpoint: "https://ik.imagekit.io/uqzqfzzbn",
     publicKey: process.env.IMAGE_KIT_PUBLIC_KEY,
@@ -25,6 +27,8 @@ app.use(cors({
     origin:process.env.CLIENT_URL,
     credentials:true,
 }))
+
+app.use(cookieParser({ credentials: true }));
 
 app.use(express.json());
 
@@ -40,6 +44,7 @@ app.get("/test",(req,res)=>{
 })
 
 app.use("/api",chatRoute);
+app.use("/api/auth",userRoutes)
 
 app.use((err,req,res,next)=>{
     console.log(err.stack);

@@ -36,7 +36,7 @@ const chatPage = () => {
 
             />
           )}
-            <div className={message.role==='user'? "message user":"message"} key={i}>
+            <div className={message.role==='user'? "message user":"message"} key={message.id}>
               <Markdown>{message.parts[0].text}</Markdown>
             </div>
           </>
