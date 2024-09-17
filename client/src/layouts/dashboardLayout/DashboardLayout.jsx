@@ -28,13 +28,13 @@ useEffect(()=>{
   }
 },[loading])
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      const tokenFromCookie = Cookies.get('access_token');
-      if (!tokenFromCookie || tokenFromCookie === '') {
-        navigate("/login");
-      }
-    }, 60000);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     const tokenFromCookie = Cookies.get('access_token');
+  //     if (!tokenFromCookie || tokenFromCookie === '') {
+  //       navigate("/login");
+  //     }
+  //   }, 60000);
 
     return () => clearInterval(intervalId);
   }, []);
